@@ -1,8 +1,13 @@
 version: '3.4'
 
 services:
+  eventstore:
+    container_name: eventstore
+    image: postgres:9.5
+
   eventsource.api:
-    image: ${DOCKER_REGISTRY-}eventsourceapi
+    container_name: eventsourceapi
+    image: profjordanov/eventsourceapi:latest
     build:
       context: .
       dockerfile: EventSource.Api/Dockerfile
