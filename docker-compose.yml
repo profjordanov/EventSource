@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  eventsource.api:
+    image: ${DOCKER_REGISTRY-}eventsourceapi
+    build:
+      context: .
+      dockerfile: EventSource.Api/Dockerfile
