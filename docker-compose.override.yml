@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=event-store-db
+      - POSTGRES_DB=event-store
     volumes:
       - database_data:/var/lib/postgresql/data 
     networks:
@@ -17,7 +17,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - EventStore__ConnectionString=PORT = 5432; HOST = eventstore; TIMEOUT = 15; POOLING = True; MINPOOLSIZE = 1; MAXPOOLSIZE = 100; COMMANDTIMEOUT = 20; DATABASE = 'event-store-db'; PASSWORD = 'postgres'; USER ID = 'postgres'
+      - EventStore__ConnectionString=PORT = 5432; HOST = eventstore; TIMEOUT = 15; POOLING = True; MINPOOLSIZE = 1; MAXPOOLSIZE = 100; COMMANDTIMEOUT = 20; DATABASE = 'event-store'; PASSWORD = 'postgres'; USER ID = 'postgres'
     ports:
       - "80"
       - "443"

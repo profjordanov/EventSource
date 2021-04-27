@@ -11,6 +11,10 @@ namespace EventSource.Domain.Views
             ProjectEvent<UpcomingEventReceived>(
                 ev => ev.UpcomingEventId,
                 (view, @event) => view.Apply(@event));
+
+            ProjectEvent<FlagSetted>(
+                ev => ev.UpcomingEventId,
+                (view, @event) => view.Apply(@event));
         }
     }
 }

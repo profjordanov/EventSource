@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using EventSource.Api.Commands;
 using EventSource.Domain.Aggregates;
 using EventSource.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +20,34 @@ namespace EventSource.Api.Controllers
         [HttpGet] 
         public IActionResult Index() => Ok("Server up and running!");
 
-        [HttpPost]
-        public async Task<IActionResult> Post()
+        [HttpPost("receive")]
+        public async Task<IActionResult> Receive([FromBody] ReceiveCommand command)
         {
+            // Command Handler
             var aggregate = new UpcomingEvent
             {
-                Id = Guid.NewGuid(),
-                Data = $"random-data-{Guid.NewGuid()}-{Guid.NewGuid()}"
+                Id = command.Identifier,
+                Data = command.Data
             };
 
-            await _eventBus.Publish(Guid.NewGuid(), aggregate.ReceiveUpcomingEvent());
+            await _eventBus.Publish(aggregate.Id, aggregate.ReceiveUpcomingEvent());
 
             return Created(string.Empty, aggregate);
+        }
+
+        [HttpPost("flag")]
+        public async Task<IActionResult> Receive([FromBody] FlagCommand command)
+        {
+            // Command Handler
+            var aggregate = new UpcomingEvent
+            {
+                Id = command.Identifier,
+                Flag = command.Flag
+            };
+
+            await _eventBus.Publish(aggregate.Id, aggregate.SetFlag());
+
+            return Ok(aggregate);
         }
     }
 }

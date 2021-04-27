@@ -21,5 +21,16 @@ namespace EventSource.Domain.Aggregates
         {
             Data = @event.Data;
         }
+
+        public FlagSetted SetFlag() => new FlagSetted
+        {
+            UpcomingEventId = Id,
+            Flag = Flag
+        };
+
+        public void Apply(FlagSetted @event)
+        {
+            Flag = @event.Flag;
+        }
     }
 }
