@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EventSource.Api.Commands;
 using EventSource.Domain.Aggregates;
+using EventSource.Domain.Repositories;
 using EventSource.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,14 +12,37 @@ namespace EventSource.Api.Controllers
     public class UpcomingEventsController : ControllerBase
     {
         private readonly IEventBus _eventBus;
+        private readonly IUpcomingEventRepository _repository;
 
-        public UpcomingEventsController(IEventBus eventBus)
+        public UpcomingEventsController(IEventBus eventBus, IUpcomingEventRepository repository)
         {
             _eventBus = eventBus;
+            _repository = repository;
         }
 
-        [HttpGet] 
-        public IActionResult Index() => Ok("Server up and running!");
+        [HttpGet("all")]
+        public async Task<IActionResult> All()
+        {
+            // Query Handler
+            var result = await _repository.EventsListAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("received")]
+        public async Task<IActionResult> Received()
+        {
+            // Query Handler
+            var result = await _repository.UpcomingEventReceivedAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("views")] 
+        public async Task<IActionResult> GetViewsByData([FromQuery] string data)
+        {
+            // Query Handler
+            var result = await _repository.ViewListByDataAsync(data);
+            return Ok(result);
+        }
 
         [HttpPost("receive")]
         public async Task<IActionResult> Receive([FromBody] ReceiveCommand command)
@@ -36,7 +60,7 @@ namespace EventSource.Api.Controllers
         }
 
         [HttpPost("flag")]
-        public async Task<IActionResult> Receive([FromBody] FlagCommand command)
+        public async Task<IActionResult> Flag([FromBody] FlagCommand command)
         {
             // Command Handler
             var aggregate = new UpcomingEvent

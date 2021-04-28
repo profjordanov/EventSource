@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using EventSource.Api.Configuration;
+using EventSource.Domain.Repositories;
+using EventSource.Persistence;
 
 namespace EventSource.Api
 {
@@ -20,6 +22,7 @@ namespace EventSource.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMarten(Configuration);
+            services.AddScoped<IUpcomingEventRepository, UpcomingEventRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
