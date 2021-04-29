@@ -12,3 +12,35 @@ are stored as a sequence of events.
 ![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture4.JPG)
 
 ![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture5.JPG)
+
+### Event Store on PostgreSQL with Marten
+The Marten library provides .NET developers with the ability to easily use PostgreSQL database engine with JSONB support to expose an ACID-compliant event store.
+
+## Prerequisites
+If you have Docker installed you can just double-click run-app.sh .
+
+## Example
+
+Start the app and execute a POST request to the /api/UpcomingEvents/receive endpoint.
+
+![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture6.JPG)
+
+Then with the same 'identifier' value execute a POST request to the /api/UpcomingEvents/flag
+
+![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture7.JPG)
+
+If we now go to the pgAdmin and check the tables in the 'event-store', they should look like:
+
+![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture8.JPG)
+
+In the 'mt_streams' table , there should be only a since record with the provided by us ID and version 2.
+
+In the 'public.mt_events' table, there should be 2 records (for each event that we have registrated).
+
+![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture9.JPG)
+
+In the 'mt_doc_upcomingeventview' table, there should be a single record with the current state of our aggragate.
+
+![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture10.JPG)
+
+## Strong Benefit: real time reporting as a service
