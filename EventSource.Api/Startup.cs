@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using EventSource.Api.Configuration;
 using EventSource.Domain.Repositories;
 using EventSource.Persistence;
+using Microsoft.AspNetCore.Identity;
 
 namespace EventSource.Api
 {
@@ -22,6 +23,8 @@ namespace EventSource.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMarten(Configuration);
+            services.AddMartenIdentity(Configuration);
+            services.AddTransient<IDatabaseSeeder, DatabaseSeeder>();
             services.AddScoped<IUpcomingEventRepository, UpcomingEventRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -30,9 +33,13 @@ namespace EventSource.Api
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            IDatabaseSeeder databaseSeeder)
         {
             DependenciesConfiguration.EnsureEventStoreIsCreated(Configuration);
+            databaseSeeder.SeedDatabaseAsync().Wait();
 
             if (env.IsDevelopment())
             {
@@ -45,6 +52,7 @@ namespace EventSource.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
