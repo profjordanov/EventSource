@@ -4,8 +4,11 @@ using EventSource.Domain.Events;
 using EventSource.Domain.Views;
 using EventSource.Persistence;
 using Marten;
+using Marten.AspNetIdentity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace EventSource.Api.Configuration
 {
@@ -57,6 +60,14 @@ namespace EventSource.Api.Configuration
             services.AddScoped(sp => sp.GetService<IDocumentStore>()?.OpenSession());
 
             services.AddScoped<IEventBus, EventBus>();
+        }
+
+        public static void AddMartenIdentity(this IServiceCollection services, IConfiguration configuration)
+        {
+            services
+                .AddIdentity<ApplicationUser, IdentityRole>()
+                .AddMartenStores<ApplicationUser, IdentityRole>(configuration.GetSection("EventStore")["ConnectionString"])
+                .AddDefaultTokenProviders();
         }
     }
 }
