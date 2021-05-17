@@ -1,5 +1,8 @@
 #  Event Sourcing as a Service
-This project aims to prototype event store via web api
+
+[![Build Status](https://travis-ci.com/profjordanov/EventSource.svg?branch=main)](https://travis-ci.com/profjordanov/EventSource)
+
+This project aims to prototype event store via web api.
 
 ### Brief introduction of the event sourcing pattern
 It's about ensuring that all changes made to the application state during the entire lifetime of the application
