@@ -1,4 +1,5 @@
 #  Event Sourcing as a Service
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Build Status](https://travis-ci.com/profjordanov/EventSource.svg?branch=main)](https://travis-ci.com/profjordanov/EventSource)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/336d1f8c57b34420b454bbcc836d4088)](https://www.codacy.com/gh/profjordanov/EventSource/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=profjordanov/EventSource&amp;utm_campaign=Badge_Grade)
 [![GitHub issues](https://img.shields.io/github/issues/profjordanov/EventSource)](https://github.com/profjordanov/EventSource/issues)
