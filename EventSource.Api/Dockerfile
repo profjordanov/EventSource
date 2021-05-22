@@ -1,5 +1,3 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -12,7 +10,7 @@ COPY ["EventSource.Persistence/EventSource.Persistence.csproj", "EventSource.Per
 COPY ["EventSource.Domain/EventSource.Domain.csproj", "EventSource.Domain/"]
 RUN dotnet restore "EventSource.Api/EventSource.Api.csproj"
 COPY . .
-WORKDIR "/src/EventSource.Api"
+WORKDIR /src/EventSource.Api
 RUN dotnet build "EventSource.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
