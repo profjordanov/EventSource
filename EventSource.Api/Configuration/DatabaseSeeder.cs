@@ -24,11 +24,11 @@ namespace EventSource.Api.Configuration
                 UserName = "example0@example.org"
 
             };
-            var signInResult = await LoginAsync(applicationUser, password);
+            var signInResult = await LoginAsync(applicationUser, password).ConfigureAwait(false);
             if (!signInResult.Succeeded)
             {
-                await RegisterAccountAsync(applicationUser, password);
-                await LoginAsync(applicationUser, password);
+                await RegisterAccountAsync(applicationUser, password).ConfigureAwait(false);
+                await LoginAsync(applicationUser, password).ConfigureAwait(false);
             }
         }
 
