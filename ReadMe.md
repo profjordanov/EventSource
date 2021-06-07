@@ -50,3 +50,4 @@ In the 'mt_doc_upcomingeventview' table, there should be a single record with th
 ![alt text](https://raw.githubusercontent.com/profjordanov/EventSource/master/docs/Capture10.JPG)
 
 ## Strong Benefit: real time reporting as a service
+Example : 
