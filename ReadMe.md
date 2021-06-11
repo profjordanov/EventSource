@@ -52,5 +52,5 @@ In the 'mt_doc_upcomingeventview' table, there should be a single record with th
 ## Strong Benefit: real time reporting as a service
 Example : Transactional use cases (saga pattern)
 
-In summary, modern systems have more and more such cases, where they receive a message via HTTP, AMQP, etc and then several components are responsible to process this message.
+In summary, modern systems have more and more such cases, where they receive a message via HTTP, AMQP, etc and then several components are responsible to process this message. In this case, they need to track the progress of the message and have a fluent log of what went wrong.
  
