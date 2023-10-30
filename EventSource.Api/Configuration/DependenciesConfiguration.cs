@@ -43,8 +43,7 @@ namespace EventSource.Api.Configuration
                 options.Events.DatabaseSchemaName = schemaName;
                 options.DatabaseSchemaName = schemaName;
 
-                options.Events.InlineProjections.AggregateStreamsWith<UpcomingEvent>();
-                options.Events.InlineProjections.Add(new UpcomingEventViewProjection());
+                options.Events.InlineProjections.AggregateStreamsWith<Order>();
 
                 var events = typeof(UpcomingEventReceived)
                     .Assembly

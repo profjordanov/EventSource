@@ -23,8 +23,8 @@ namespace EventSource.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMarten(Configuration);
-            services.AddMartenIdentity(Configuration);
-            services.AddTransient<IDatabaseSeeder, DatabaseSeeder>();
+            //services.AddMartenIdentity(Configuration);
+            //services.AddTransient<IDatabaseSeeder, DatabaseSeeder>();
             services.AddScoped<IUpcomingEventRepository, UpcomingEventRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -35,11 +35,9 @@ namespace EventSource.Api
 
         public void Configure(
             IApplicationBuilder app, 
-            IWebHostEnvironment env,
-            IDatabaseSeeder databaseSeeder)
+            IWebHostEnvironment env)
         {
             DependenciesConfiguration.EnsureEventStoreIsCreated(Configuration);
-            databaseSeeder.SeedDatabaseAsync().Wait();
 
             if (env.IsDevelopment())
             {
